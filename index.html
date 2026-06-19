@@ -588,9 +588,11 @@
                     declareSgd = 0;
                 }
 
-                // C. Hitung Base Freight & Markup Kredit 10%
-                let baseRate = cWeight <= 50 ? 5 : 4.5;
-                let baseFreight = cWeight * baseRate;
+                // C. Hitung Base Freight (Tiered/Progresif) & Markup Kredit 10%
+                let tier1 = Math.min(cWeight, 50) * 5;
+                let tier2 = Math.min(Math.max(cWeight - 50, 0), 50) * 4.5;
+                
+                let baseFreight = tier1 + tier2;
                 let creditFreight = baseFreight * 1.1;
 
                 // D. Hitung GST 9% + Markup Kredit 10%

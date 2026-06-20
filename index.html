@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Reseller Credit - Usaha Express</title>
+    <title>Kalkulator Reseller Credit & Cash - Usaha Express</title>
     <style>
         :root {
             --primary-red: #D32F2F;
@@ -42,176 +42,92 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        .brand-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .brand-logo {
-            height: 50px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .brand-title h1 {
-            font-size: 20px;
-            color: var(--primary-red);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .brand-title p {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
+        .brand-container { display: flex; align-items: center; gap: 15px; }
+        .brand-logo { height: 50px; width: auto; object-fit: contain; }
+        .brand-title h1 { font-size: 20px; color: var(--primary-red); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .brand-title p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
         /* MAIN LAYOUT */
         .main-container {
-            max-width: 1300px;
-            margin: 30px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
+            max-width: 1300px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px;
         }
-
-        @media (max-width: 992px) {
-            .main-container {
-                grid-template-columns: 1fr;
-            }
-        }
+        @media (max-width: 992px) { .main-container { grid-template-columns: 1fr; } }
 
         /* CARDS GENERAL */
         .card {
-            background: var(--pure-white);
-            border-radius: 10px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid #E0E0E0;
-            padding: 24px;
-            margin-bottom: 25px;
-            position: relative;
-            overflow: hidden;
+            background: var(--pure-white); border-radius: 10px; box-shadow: var(--card-shadow);
+            border: 1px solid #E0E0E0; padding: 24px; margin-bottom: 25px; position: relative; overflow: hidden;
         }
-
         .card-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--primary-red);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid var(--light-red-bg);
-            padding-bottom: 8px;
+            font-size: 16px; font-weight: 700; color: var(--primary-red); margin-bottom: 20px;
+            display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--light-red-bg); padding-bottom: 8px;
         }
 
         /* BULK PASTE BOX */
         .bulk-paste-box {
-            background: var(--light-red-bg);
-            border: 2px dashed var(--primary-red);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
+            background: var(--light-red-bg); border: 2px dashed var(--primary-red);
+            border-radius: 10px; padding: 20px; margin-bottom: 25px;
         }
-        
-        .bulk-paste-box h4 {
-            color: var(--primary-red);
-            margin-bottom: 8px;
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        /* GLOBAL CONFIG SECTION (KURS) */
-        .kurs-grid {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 20px;
-            align-items: center;
-        }
+        .bulk-paste-box h4 { color: var(--primary-red); margin-bottom: 8px; font-size: 15px; font-weight: 700; }
 
         /* FORM INPUTS */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .form-group { margin-bottom: 15px; }
         label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text-dark); }
         input[type="number"], select {
-            width: 100%; padding: 10px 12px; border: 1px solid #CCCCCC;
-            border-radius: 6px; font-size: 14px; background-color: var(--pure-white);
-            color: var(--text-dark); transition: border-color var(--transition-speed);
+            width: 100%; padding: 10px 12px; border: 1px solid #CCCCCC; border-radius: 6px;
+            font-size: 14px; background-color: var(--pure-white); color: var(--text-dark); transition: border-color var(--transition-speed);
         }
-        input[type="number"]:focus, select:focus {
-            outline: none; border-color: var(--primary-red); box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
-        }
+        input[type="number"]:focus, select:focus { outline: none; border-color: var(--primary-red); box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15); }
 
-        .info-badge-kurs {
-            background-color: var(--light-red-bg); color: var(--primary-red);
-            padding: 12px 16px; border-radius: 6px; font-size: 14px;
-            font-weight: 600; border: 1px solid var(--border-red);
-            min-width: 220px; text-align: center;
-        }
-
+        .info-text { font-size: 12px; color: #666; margin-top: 5px; display: block; }
+        
         /* SHIPMENT ITEMS CONTAINER */
-        .shipment-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px;
-        }
+        .shipment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; }
         .dimensi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
         .declare-row { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
 
         /* OPTIONS / CHECKBOXES */
         .options-container { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; }
         .checkbox-label {
-            display: flex; align-items: center; gap: 10px; font-weight: normal; font-size: 13px;
-            cursor: pointer; background: var(--bg-light); padding: 8px 12px;
-            border-radius: 6px; border: 1px solid #E0E0E0; transition: all var(--transition-speed);
+            display: flex; align-items: center; gap: 10px; font-weight: normal; font-size: 13px; cursor: pointer;
+            background: var(--bg-light); padding: 8px 12px; border-radius: 6px; border: 1px solid #E0E0E0; transition: all var(--transition-speed);
         }
         .checkbox-label:hover { background: var(--light-red-bg); border-color: var(--border-red); }
         .checkbox-label input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--primary-red); cursor: pointer; }
 
         /* INLINE ITEM BREAKDOWN */
         .item-breakdown {
-            margin-top: 20px; padding-top: 15px; border-top: 1px dashed #E0E0E0;
-            background-color: #FAFAFA; padding: 12px; border-radius: 6px;
+            margin-top: 20px; padding-top: 15px; border-top: 1px dashed #E0E0E0; background-color: #FAFAFA; padding: 12px; border-radius: 6px;
         }
         .breakdown-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: var(--text-muted); }
-        .breakdown-row.subtotal {
-            font-weight: 700; color: var(--primary-red); font-size: 14px;
-            border-top: 1px solid #E0E0E0; padding-top: 6px; margin-bottom: 0;
-        }
+        .breakdown-row.subtotal { font-weight: 700; color: var(--primary-red); font-size: 14px; border-top: 1px solid #E0E0E0; padding-top: 6px; margin-bottom: 0; }
 
-        /* 100KG LIMIT WARNING */
         .warning-limit {
-            display: none; background-color: var(--primary-red); color: var(--pure-white);
-            padding: 12px; border-radius: 6px; font-weight: 600; font-size: 13px;
-            margin-top: 15px; text-align: center; box-shadow: 0 4px 6px rgba(211,47,47,0.2);
+            display: none; background-color: var(--primary-red); color: var(--pure-white); padding: 12px;
+            border-radius: 6px; font-weight: 600; font-size: 13px; margin-top: 15px; text-align: center; box-shadow: 0 4px 6px rgba(211,47,47,0.2);
         }
 
         /* BUTTONS */
         .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 12px 20px; font-size: 14px; font-weight: 600; border-radius: 6px;
-            cursor: pointer; transition: all var(--transition-speed); border: none;
-            text-transform: uppercase; letter-spacing: 0.3px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px;
+            font-size: 14px; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all var(--transition-speed);
+            border: none; text-transform: uppercase; letter-spacing: 0.3px;
         }
         .btn-primary { background-color: var(--primary-red); color: var(--pure-white); }
         .btn-primary:hover { background-color: var(--secondary-red); box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2); }
-        .btn-danger {
-            background-color: transparent; color: #C62828; padding: 5px 10px;
-            font-size: 12px; border: 1px solid #EF9A9A; border-radius: 4px;
-        }
+        .btn-danger { background-color: transparent; color: #C62828; padding: 5px 10px; font-size: 12px; border: 1px solid #EF9A9A; border-radius: 4px; }
         .btn-danger:hover { background-color: #FFEBEE; border-color: #E53935; }
-
         .action-bar { display: flex; justify-content: space-between; margin-bottom: 20px; }
 
-        /* SUMMARY SIDEBAR (STICKY) */
+        /* SUMMARY SIDEBAR */
         .summary-sidebar { position: sticky; top: 30px; height: fit-content; }
         .summary-card { border: 2px solid var(--primary-red); }
         .total-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #E0E0E0; font-size: 14px; }
         .total-row.grand-total-sgd { border-top: 2px solid var(--text-dark); margin-top: 15px; font-weight: 700; font-size: 16px; }
         .total-row.grand-total-idr {
-            background-color: var(--primary-red); color: var(--pure-white); padding: 15px;
-            border-radius: 8px; font-size: 20px; font-weight: 700; margin-top: 15px;
-            border-bottom: none; box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+            background-color: var(--primary-red); color: var(--pure-white); padding: 15px; border-radius: 8px;
+            font-size: 20px; font-weight: 700; margin-top: 15px; border-bottom: none; box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
         }
         .badge-weight { background-color: #E0E0E0; color: var(--text-dark); padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: bold; }
 
@@ -232,30 +148,34 @@
         <div class="brand-container">
             <img src="logo.png" alt="Logo Usaha Express" class="brand-logo" onerror="this.style.display='none';">
             <div class="brand-title">
-                <h1>Kalkulator Reseller Credit</h1>
-                <p>Rute Batam (BTH) &rarr; Singapore (SIN) | Khusus Skema Term Kredit</p>
+                <h1>Kalkulator Reseller BTH-SIN</h1>
+                <p>Logistik Ekspor Otomatis | Credit Term & Cash Term</p>
             </div>
         </div>
     </div>
 
     <div class="main-container">
-        
         <div class="left-panel">
             
             <div class="card">
-                <div class="card-title">1. KONFIGURASI KURS TRANSAKSI BI</div>
-                <div class="kurs-grid">
+                <div class="card-title">1. KONFIGURASI TRANSAKSI</div>
+                <div class="grid-2">
                     <div class="form-group" style="margin-bottom: 0;">
-                        <label for="globalKurs">Masukkan Kurs Jual SGD Saat Ini (BI)</label>
+                        <label for="globalKurs">Kurs Jual SGD Saat Ini (BI)</label>
                         <input type="number" id="globalKurs" value="14015" placeholder="Contoh: 13912" oninput="calculateAll()">
+                        <span class="info-text" id="kursBerlakuDisplay" style="color: var(--primary-red); font-weight: bold;">Kurs Berlaku (+50): Rp 14.050</span>
                     </div>
-                    <div class="info-badge-kurs" id="kursBerlakuDisplay">
-                        Kurs Berlaku (+50): Rp 14.050
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="skemaTarif">Skema Tarif Usaha Express</label>
+                        <select id="skemaTarif" onchange="calculateAll()" style="border-color: var(--primary-red); color: var(--primary-red); font-weight: bold;">
+                            <option value="credit">RESELLER CREDIT TERM (+10%)</option>
+                            <option value="cash">RESELLER CASH TERM (Harga Dasar)</option>
+                        </select>
+                        <span class="info-text">Menyesuaikan formula markup harga (x1.1)</span>
                     </div>
                 </div>
             </div>
 
-            <!-- NEW: BULK PASTE BOX -->
             <div class="bulk-paste-box">
                 <h4>⚡ QUICK PASTE DARI EXCEL (BULK INSERT)</h4>
                 <p style="font-size: 13px; color: var(--text-dark); margin-bottom: 12px;">Punya banyak baris kiriman? Copy (Ctrl+C) kolom <b>Berat Aktual, Panjang, Lebar, Tinggi</b> dari Excel sekaligus, lalu Paste (Ctrl+V) ke dalam kotak di bawah ini.</p>
@@ -263,9 +183,7 @@
             </div>
 
             <div class="action-bar">
-                <h3 style="font-size: 16px; font-weight: 700; align-self: center; color: var(--text-dark);">
-                    2. DAFTAR ITEM KIRIMAN LOGISTIK
-                </h3>
+                <h3 style="font-size: 16px; font-weight: 700; align-self: center; color: var(--text-dark);">2. DAFTAR ITEM KIRIMAN LOGISTIK</h3>
                 <button class="btn btn-primary" onclick="addShipmentCard()">
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
                     Tambah Manual
@@ -273,79 +191,39 @@
             </div>
 
             <div id="shipmentsContainer"></div>
-
         </div>
 
         <div class="summary-sidebar">
             <div class="card summary-card">
-                <div class="card-title" style="border-bottom: 2px solid var(--primary-red);">
-                    3. RINGKASAN AKUMULASI BIAYA
-                </div>
+                <div class="card-title" style="border-bottom: 2px solid var(--primary-red);">3. RINGKASAN AKUMULASI BIAYA</div>
                 
-                <div class="total-row">
-                    <span>Jumlah Paket Kiriman</span>
-                    <span id="summaryTotalItems" style="font-weight: 600;">0 Paket</span>
-                </div>
-                <div class="total-row">
-                    <span>Total Berat Aktual</span>
-                    <span id="summaryTotalAktual" style="font-weight: 600;">0.00 Kg</span>
-                </div>
-                <div class="total-row">
-                    <span>Total Chargeable Weight</span>
-                    <span id="summaryTotalChargeable" class="badge-weight">0.00 Kg</span>
-                </div>
-                <div class="total-row">
-                    <span>Akumulasi Freight</span>
-                    <span id="summaryTotalFreight">S$ 0.0000</span>
-                </div>
-                <div class="total-row">
-                    <span>Akumulasi GST (9%)</span>
-                    <span id="summaryTotalGst">S$ 0.0000</span>
-                </div>
-                <div class="total-row">
-                    <span>Akumulasi Asuransi</span>
-                    <span id="summaryTotalIns">S$ 0.0000</span>
-                </div>
-                <div class="total-row">
-                    <span>Akumulasi Undername</span>
-                    <span id="summaryTotalUndername">S$ 0.0000</span>
-                </div>
-                <div class="total-row">
-                    <span>Akumulasi Surcharge</span>
-                    <span id="summaryTotalSurcharge">S$ 0.0000</span>
-                </div>
+                <div class="total-row"><span>Jumlah Paket Kiriman</span><span id="summaryTotalItems" style="font-weight: 600;">0 Paket</span></div>
+                <div class="total-row"><span>Total Berat Aktual</span><span id="summaryTotalAktual" style="font-weight: 600;">0.00 Kg</span></div>
+                <div class="total-row"><span>Total Chargeable Weight</span><span id="summaryTotalChargeable" class="badge-weight">0.00 Kg</span></div>
+                <div class="total-row"><span>Akumulasi Freight</span><span id="summaryTotalFreight">S$ 0.0000</span></div>
+                <div class="total-row"><span>Akumulasi GST (9%)</span><span id="summaryTotalGst">S$ 0.0000</span></div>
+                <div class="total-row"><span>Akumulasi Asuransi</span><span id="summaryTotalIns">S$ 0.0000</span></div>
+                <div class="total-row"><span>Akumulasi Undername</span><span id="summaryTotalUndername">S$ 0.0000</span></div>
+                <div class="total-row"><span>Akumulasi Surcharge</span><span id="summaryTotalSurcharge">S$ 0.0000</span></div>
 
-                <div class="total-row grand-total-sgd">
-                    <span>TOTAL SELURUH (SGD)</span>
-                    <span id="summaryGrandTotalSgd">S$ 0.0000</span>
-                </div>
-                
-                <div class="total-row grand-total-idr">
-                    <span>TOTAL AKHIR (IDR)</span>
-                    <span id="summaryGrandTotalIdr">Rp 0</span>
-                </div>
+                <div class="total-row grand-total-sgd"><span>TOTAL SELURUH (SGD)</span><span id="summaryGrandTotalSgd">S$ 0.0000</span></div>
+                <div class="total-row grand-total-idr"><span>TOTAL AKHIR (IDR)</span><span id="summaryGrandTotalIdr">Rp 0</span></div>
 
                 <button class="btn btn-primary" style="width: 100%; margin-top: 20px; background-color: #333;" onclick="window.print()">
                     Cetak / Simpan PDF
                 </button>
             </div>
         </div>
-
     </div>
 
     <script>
         let cardCounter = 0;
+        window.onload = function() { addShipmentCard(); };
 
-        window.onload = function() {
-            addShipmentCard(); 
-        };
-
-        // EVENT LISTENER UNTUK BULK PASTE DARI EXCEL
         document.getElementById('bulkPasteArea').addEventListener('paste', function(e) {
             e.preventDefault();
             const clipboardData = e.clipboardData || window.clipboardData;
             const pastedText = clipboardData.getData('text');
-            
             if (!pastedText) return;
 
             const rows = pastedText.split(/\r?\n/);
@@ -353,9 +231,7 @@
 
             rows.forEach(row => {
                 const cols = row.split('\t');
-                // Mengecek apakah ada minimal 4 kolom (Berat, P, L, T)
                 if (cols.length >= 4) {
-                    // Mengganti koma (Indonesia) menjadi titik (Standar program) agar tidak error
                     const berat = parseFloat(cols[0].replace(',', '.'));
                     const p = parseFloat(cols[1].replace(',', '.'));
                     const l = parseFloat(cols[2].replace(',', '.'));
@@ -364,12 +240,10 @@
                     if (!isNaN(berat) && !isNaN(p) && !isNaN(l) && !isNaN(t)) {
                         const newCardId = addShipmentCard();
                         const card = document.getElementById('card_' + newCardId);
-                        
                         card.querySelector('.input-aktual').value = berat;
                         card.querySelector('.input-p').value = p;
                         card.querySelector('.input-l').value = l;
                         card.querySelector('.input-t').value = t;
-                        
                         processedCount++;
                     }
                 }
@@ -377,8 +251,6 @@
 
             if (processedCount > 0) {
                 calculateAll();
-                
-                // Animasi UX sukses paste
                 const originalPlaceholder = this.placeholder;
                 this.placeholder = `✅ Berhasil mengimpor ${processedCount} baris kiriman dari Excel!`;
                 this.value = '';
@@ -391,20 +263,17 @@
         function addShipmentCard() {
             cardCounter++;
             const container = document.getElementById('shipmentsContainer');
-            
             const cardHtml = `
                 <div class="card id-shipment-card" id="card_${cardCounter}">
                     <div class="card-title">
                         <span>KIRIMAN #${cardCounter}</span>
                         <button class="btn-danger" onclick="removeShipmentCard(${cardCounter})">Hapus</button>
                     </div>
-                    
                     <div class="shipment-grid">
                         <div class="form-group">
                             <label>Berat Aktual (Kg)</label>
                             <input type="number" class="input-aktual" placeholder="0" step="0.01" oninput="calculateAll()">
                         </div>
-                        
                         <div class="form-group">
                             <label>Dimensi P x L x T (cm)</label>
                             <div class="dimensi-row">
@@ -413,7 +282,6 @@
                                 <input type="number" class="input-t" placeholder="T" oninput="calculateAll()">
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label>Declare Value (Nilai Barang)</label>
                             <div class="declare-row">
@@ -443,57 +311,37 @@
                         </div>
                     </div>
 
-                    <!-- Peringatan jika Chargeable Weight melebihi 100 kg -->
                     <div class="warning-limit">
                         ⚠️ Chargeable Weight kiriman ini > 100 Kg. Harap hubungi Usaha Express untuk harga khusus (Case by Case).
                     </div>
 
                     <div class="item-breakdown">
-                        <div class="breakdown-row">
-                            <span>Chargeable Weight Kiriman Ini:</span>
-                            <span class="item-display-cweight" style="font-weight: 700;">0.00 Kg</span>
-                        </div>
-                        <div class="breakdown-row subtotal">
-                            <span>Biaya Kiriman Ini (SGD):</span>
-                            <span class="item-display-sgd">S$ 0.0000</span>
-                        </div>
-                        <div class="breakdown-row" style="margin-top: 4px; font-size: 12px; font-weight: 600;">
-                            <span>Biaya Kiriman Ini (IDR):</span>
-                            <span class="item-display-idr">Rp 0</span>
-                        </div>
+                        <div class="breakdown-row"><span>Chargeable Weight:</span><span class="item-display-cweight" style="font-weight: 700;">0.00 Kg</span></div>
+                        <div class="breakdown-row subtotal"><span>Biaya Kiriman Ini (SGD):</span><span class="item-display-sgd">S$ 0.0000</span></div>
+                        <div class="breakdown-row" style="margin-top: 4px; font-size: 12px; font-weight: 600;"><span>Biaya Kiriman Ini (IDR):</span><span class="item-display-idr">Rp 0</span></div>
                     </div>
                 </div>
             `;
-            
             container.insertAdjacentHTML('beforeend', cardHtml);
             calculateAll();
-            return cardCounter; // Mengembalikan ID untuk keperluan Bulk Paste
+            return cardCounter;
         }
 
         function removeShipmentCard(id) {
             const card = document.getElementById(`card_${id}`);
-            if (card) {
-                card.remove();
-                calculateAll();
-            }
+            if (card) { card.remove(); calculateAll(); }
         }
 
         function calculateAll() {
             const rawKurs = parseFloat(document.getElementById('globalKurs').value) || 0;
             const kursBerlaku = rawKurs > 0 ? Math.ceil(rawKurs / 50) * 50 : 0;
-            
             document.getElementById('kursBerlakuDisplay').innerText = `Kurs Berlaku (+50): Rp ${kursBerlaku.toLocaleString('id-ID')}`;
 
-            let totalItemsCount = 0;
-            let aggAktualWeight = 0;
-            let aggChargeableWeight = 0;
-            let aggFreight = 0;
-            let aggGst = 0;
-            let aggIns = 0;
-            let aggUndername = 0;
-            let aggSurcharge = 0;
-            let aggGrandTotalSgd = 0;
-            let aggGrandTotalIdr = 0;
+            // LOGIKA TOGGLE CREDIT VS CASH TERM
+            const skema = document.getElementById('skemaTarif').value;
+            const multiplier = (skema === 'credit') ? 1.1 : 1.0;
+
+            let totalItemsCount = 0, aggAktualWeight = 0, aggChargeableWeight = 0, aggFreight = 0, aggGst = 0, aggIns = 0, aggUndername = 0, aggSurcharge = 0, aggGrandTotalSgd = 0, aggGrandTotalIdr = 0;
 
             const activeCards = document.querySelectorAll('.id-shipment-card');
             totalItemsCount = activeCards.length;
@@ -511,66 +359,51 @@
 
                 const volWeight = (p * l * t) / 5000;
                 let cWeight = inputAktual;
-                if (volWeight > inputAktual) {
-                    cWeight = (((volWeight - inputAktual) / 2) + inputAktual);
-                }
+                if (volWeight > inputAktual) { cWeight = (((volWeight - inputAktual) / 2) + inputAktual); }
 
                 const warningLimit = card.querySelector('.warning-limit');
                 const itemBreakdown = card.querySelector('.item-breakdown');
 
-                // LOGIKA LIMIT 100KG
                 if (cWeight > 100) {
-                    warningLimit.style.display = 'block';
-                    itemBreakdown.style.display = 'none';
-                    return; // Skip kalkulasi biaya dan akumulasi untuk kartu ini
+                    warningLimit.style.display = 'block'; itemBreakdown.style.display = 'none'; return;
                 } else {
-                    warningLimit.style.display = 'none';
-                    itemBreakdown.style.display = 'block';
+                    warningLimit.style.display = 'none'; itemBreakdown.style.display = 'block';
                 }
 
                 let declareSgd = declareInput;
-                if (currency === 'IDR' && kursBerlaku > 0) {
-                    declareSgd = declareInput / kursBerlaku;
-                } else if (currency === 'IDR' && kursBerlaku === 0) {
-                    declareSgd = 0;
-                }
+                if (currency === 'IDR' && kursBerlaku > 0) declareSgd = declareInput / kursBerlaku;
+                else if (currency === 'IDR' && kursBerlaku === 0) declareSgd = 0;
 
-                // Kalkulasi Freight Progresif (Tiered)
+                // PERHITUNGAN DINAMIS TERGANTUNG MULTIPLIER (CASH 1.0 / CREDIT 1.1)
                 let tier1 = Math.min(cWeight, 50) * 5;
                 let tier2 = Math.min(Math.max(cWeight - 50, 0), 50) * 4.5;
                 let baseFreight = tier1 + tier2;
-                let creditFreight = baseFreight * 1.1;
-
-                let creditGst = (declareSgd * 0.09) * 1.1;
-
-                let creditIns = 0;
+                
+                let finalFreight = baseFreight * multiplier;
+                let finalGst = (declareSgd * 0.09) * multiplier;
+                
+                let finalIns = 0;
                 if (useIns) {
                     let baseIns = Math.max(5, declareSgd * 0.005);
-                    creditIns = baseIns * 1.1;
+                    finalIns = baseIns * multiplier;
                 }
 
-                let creditUndername = (creditFreight + creditGst + creditIns) * 0.05 * 1.1;
+                let finalUndername = (finalFreight + finalGst + finalIns) * 0.05 * multiplier;
 
                 let itemSurcharge = 0;
                 if (isPriority) itemSurcharge += 10;
                 if (isPermit) itemSurcharge += 30;
 
-                let itemTotalSgd = creditFreight + creditGst + creditIns + creditUndername + itemSurcharge;
+                let itemTotalSgd = finalFreight + finalGst + finalIns + finalUndername + itemSurcharge;
                 let itemTotalIdr = itemTotalSgd * kursBerlaku;
 
                 card.querySelector('.item-display-cweight').innerText = `${cWeight.toFixed(2)} Kg (Vol: ${volWeight.toFixed(2)} Kg)`;
                 card.querySelector('.item-display-sgd').innerText = `S$ ${itemTotalSgd.toFixed(4)}`;
                 card.querySelector('.item-display-idr').innerText = `Rp ${Math.round(itemTotalIdr).toLocaleString('id-ID')}`;
 
-                aggAktualWeight += inputAktual;
-                aggChargeableWeight += cWeight;
-                aggFreight += creditFreight;
-                aggGst += creditGst;
-                aggIns += creditIns;
-                aggUndername += creditUndername;
-                aggSurcharge += itemSurcharge;
-                aggGrandTotalSgd += itemTotalSgd;
-                aggGrandTotalIdr += itemTotalIdr;
+                aggAktualWeight += inputAktual; aggChargeableWeight += cWeight; aggFreight += finalFreight; aggGst += finalGst;
+                aggIns += finalIns; aggUndername += finalUndername; aggSurcharge += itemSurcharge;
+                aggGrandTotalSgd += itemTotalSgd; aggGrandTotalIdr += itemTotalIdr;
             });
 
             document.getElementById('summaryTotalItems').innerText = `${totalItemsCount} Paket`;

@@ -5,133 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalkulator End-to-End: Sumatera - Singapore | PosIND</title>
     
-    <!-- Mengimpor Font Resmi PosIND: Sora & Gantari -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gantari:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* Warna Resmi Rebranding PosIND */
-            --delft-blue: #1C2D5A;
-            --cinnabar: #EF4123;
-            --bg-light: #F4F6F9;
-            --white: #FFFFFF;
-            --gray-border: #D1D5DB;
-            --text-main: #333333;
-            --light-red-bg: #FFEBEE;
+            var(--delft-blue): #1C2D5A;
+            var(--cinnabar): #EF4123;
+            var(--bg-light): #F4F6F9;
+            var(--white): #FFFFFF;
+            var(--gray-border): #D1D5DB;
+            var(--text-main): #333333;
+            var(--light-red-bg): #FFEBEE;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Gantari', Arial, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            padding-bottom: 50px;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Gantari', Arial, sans-serif; background-color: #F4F6F9; color: #333333; padding-bottom: 50px; }
         h1, h2, h3, h4, .headline { font-family: 'Sora', Arial, sans-serif; }
 
-        /* HEADER & LOGO */
-        .navbar {
-            background-color: var(--white);
-            border-bottom: 5px solid var(--cinnabar);
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(28, 45, 90, 0.08);
-        }
-        
+        .navbar { background-color: #FFFFFF; border-bottom: 5px solid #EF4123; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(28, 45, 90, 0.08); }
         .navbar img.danantara { height: 45px; }
         .navbar img.posind { height: 35px; }
 
-        /* KONTAINER UTAMA */
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1.8fr 1.2fr;
-            gap: 25px;
-        }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 25px; }
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .navbar { padding: 15px 20px; } .navbar img.danantara { height: 35px; } .navbar img.posind { height: 28px; } }
 
-        @media (max-width: 900px) {
-            .container { grid-template-columns: 1fr; }
-            .navbar { padding: 15px 20px; }
-            .navbar img.danantara { height: 35px; }
-            .navbar img.posind { height: 28px; }
-        }
+        .card { background: #FFFFFF; border-radius: 12px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); border: 1px solid #E5E7EB; margin-bottom: 25px; }
+        .card-title { font-size: 16px; color: #1C2D5A; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #EF4123; display: flex; align-items: center; justify-content: space-between; }
 
-        /* KARTU FORM */
-        .card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            border: 1px solid #E5E7EB;
-            margin-bottom: 25px;
-        }
-
-        .card-title {
-            font-size: 16px;
-            color: var(--delft-blue);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--cinnabar);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        /* FORM BIAYA */
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .span-2 { grid-column: span 2; }
+        @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } }
+        
         .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; color: var(--delft-blue); }
+        label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; color: #1C2D5A; }
         
         input[type="number"], select, .autocomplete-input {
-            width: 100%; padding: 12px; border: 1px solid var(--gray-border);
-            border-radius: 6px; font-size: 14px; font-family: 'Gantari', sans-serif; transition: all 0.2s;
+            width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 6px; font-size: 14px; font-family: 'Gantari', sans-serif; transition: all 0.2s;
         }
-        input:focus, select:focus, .autocomplete-input:focus {
-            outline: none; border-color: var(--delft-blue); box-shadow: 0 0 0 3px rgba(28, 45, 90, 0.1);
-        }
+        input:focus, select:focus, .autocomplete-input:focus { outline: none; border-color: #1C2D5A; box-shadow: 0 0 0 3px rgba(28, 45, 90, 0.1); }
 
         .info-text { font-size: 12px; color: #6B7280; margin-top: 4px; display: block; }
-        
         .checkbox-container { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
-        .checkbox-container label { display: flex; align-items: center; gap: 5px; font-weight: 500; cursor: pointer; color: var(--text-main); margin: 0; }
-        .checkbox-container input { width: 16px; height: 16px; accent-color: var(--cinnabar); }
+        .checkbox-container label { display: flex; align-items: center; gap: 5px; font-weight: 500; cursor: pointer; color: #333333; margin: 0; }
+        .checkbox-container input { width: 16px; height: 16px; accent-color: #EF4123; }
 
-        /* UI AUTOCOMPLETE KETIK (PENGGANTI DROPDOWN) */
         .autocomplete-wrapper { position: relative; width: 100%; }
-        .autocomplete-input {
-            background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%236B7280" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>') no-repeat right 12px center;
-        }
+        .autocomplete-input { background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%236B7280" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>') no-repeat right 12px center; }
         .autocomplete-list {
-            position: absolute; top: 100%; left: 0; right: 0; background: #fff;
-            border: 1px solid var(--gray-border); border-radius: 6px; max-height: 220px;
-            overflow-y: auto; z-index: 1000; box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            display: none; margin-top: 4px; list-style: none;
+            position: absolute; top: 100%; left: 0; right: 0; background: #fff; border: 1px solid #D1D5DB; border-radius: 6px; max-height: 220px; overflow-y: auto; z-index: 1000; box-shadow: 0 8px 16px rgba(0,0,0,0.1); display: none; margin-top: 4px; list-style: none;
         }
         .autocomplete-list.active { display: block; }
         .autocomplete-item { padding: 10px 12px; cursor: pointer; border-bottom: 1px solid #f3f4f6; font-size: 14px; }
         .autocomplete-item:last-child { border-bottom: none; }
-        .autocomplete-item:hover { background-color: var(--light-red-bg); color: var(--cinnabar); font-weight: 600; }
+        .autocomplete-item:hover { background-color: #FFEBEE; color: #EF4123; font-weight: 600; }
         .autocomplete-item.no-result { cursor: default; color: #9ca3af; background: #fff !important; font-weight: normal !important; text-align: center; font-style: italic; }
 
-        /* RINCIAN HASIL */
-        .result-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed var(--gray-border); font-size: 14px; }
-        .result-row.subtotal { font-weight: 700; border-top: 2px solid var(--delft-blue); border-bottom: none; padding-top: 15px; margin-top: 5px; color: var(--delft-blue); }
-        .result-row.total-akhir { background-color: var(--delft-blue); color: var(--white); padding: 15px; border-radius: 8px; font-size: 18px; font-weight: 700; margin-top: 15px; align-items: center; }
-        .per-kg-box { text-align: right; margin-top: 10px; font-size: 15px; color: var(--cinnabar); font-weight: 700; font-family: 'Sora', sans-serif; }
+        .result-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #D1D5DB; font-size: 14px; }
+        .result-row.subtotal { font-weight: 700; border-top: 2px solid #1C2D5A; border-bottom: none; padding-top: 15px; margin-top: 5px; color: #1C2D5A; }
+        .result-row.total-akhir { background-color: #1C2D5A; color: #FFFFFF; padding: 15px; border-radius: 8px; font-size: 18px; font-weight: 700; margin-top: 15px; align-items: center; }
+        .per-kg-box { text-align: right; margin-top: 10px; font-size: 15px; color: #EF4123; font-weight: 700; font-family: 'Sora', sans-serif; }
         
-        /* PRINT STYLING */
         @media print {
             body { background: white; padding: 0; }
             .left-panel, .navbar, button { display: none !important; }
@@ -143,14 +78,12 @@
 </head>
 <body>
 
-    <!-- Header dengan Logo Danantara & PosIND -->
     <div class="navbar">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Danantara_Indonesia_%28no_SW%29.svg/960px-Danantara_Indonesia_%28no_SW%29.svg.png" alt="Danantara" class="danantara">
         <img src="https://www.posindonesia.co.id/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdark-logo.1203538b.png&w=256&q=75" alt="PosIND" class="posind">
     </div>
 
     <div class="container">
-        <!-- PANEL KIRI: INPUT -->
         <div class="left-panel">
             
             <div class="card">
@@ -159,12 +92,20 @@
                     <div class="form-group">
                         <label>KURS JUAL SGD (Bank Indonesia)</label>
                         <input type="number" id="inputKurs" value="14015" oninput="calculate()">
-                        <span class="info-text" id="infoKurs">Kurs berlaku (+50): Rp 14.050</span>
+                        <span class="info-text" id="infoKurs" style="color: #EF4123; font-weight: bold;">Kurs berlaku (+50): Rp 14.050</span>
                     </div>
                     <div class="form-group">
                         <label>MARGIN PROFIT (%)</label>
                         <input type="number" id="inputMargin" value="20" min="10" max="100" oninput="calculate()">
                         <span class="info-text">Standard: 10% - 20%</span>
+                    </div>
+                    <div class="form-group span-2">
+                        <label>SKEMA TARIF EKSPOR (BTH - SIN)</label>
+                        <select id="skemaTarif" onchange="calculate()" style="border-color: #EF4123; font-weight: bold; color: #EF4123;">
+                            <option value="credit">RESELLER CREDIT TERM (+10% Markup)</option>
+                            <option value="cash">RESELLER CASH TERM (Harga Dasar)</option>
+                        </select>
+                        <span class="info-text">Menyesuaikan formula markup biaya mitra Usaha Express ke Pos Indonesia.</span>
                     </div>
                 </div>
             </div>
@@ -215,63 +156,32 @@
                     <label><input type="checkbox" id="usePermit" onchange="calculate()"> Permit (+S$ 30)</label>
                 </div>
                 
-                <div id="warning-100kg" style="display: none; margin-top: 15px; color: var(--white); background: var(--cinnabar); padding: 10px; border-radius: 6px; font-weight: bold; text-align: center; font-size: 13px;">
+                <div id="warning-100kg" style="display: none; margin-top: 15px; color: #FFFFFF; background: #EF4123; padding: 10px; border-radius: 6px; font-weight: bold; text-align: center; font-size: 13px;">
                     ⚠️ Chargeable Weight melebihi 100 Kg. Hubungi Usaha Express (Case by Case).
                 </div>
             </div>
         </div>
 
-        <!-- PANEL KANAN: HASIL -->
         <div class="right-panel">
             <div class="card" style="position: sticky; top: 20px;">
                 <h2 class="card-title headline">3. RINCIAN TARIF & BIAYA</h2>
                 
-                <div class="result-row">
-                    <span>CWeight Domestik (/6000)</span>
-                    <span id="resCwDomestik" style="font-weight: 600;">0 Kg</span>
-                </div>
-                <div class="result-row" style="margin-bottom: 10px;">
-                    <span>CWeight Ekspor (/5000)</span>
-                    <span id="resCwEkspor" style="font-weight: 600;">0 Kg</span>
-                </div>
+                <div class="result-row"><span>CWeight Domestik (/6000)</span><span id="resCwDomestik" style="font-weight: 600;">0 Kg</span></div>
+                <div class="result-row" style="margin-bottom: 10px;"><span>CWeight Ekspor (/5000)</span><span id="resCwEkspor" style="font-weight: 600;">0 Kg</span></div>
 
-                <div class="result-row">
-                    <span>1. Tarif Domestik (Sumatera ke Batam)</span>
-                    <span id="resBiayaDomestik">Rp 0</span>
-                </div>
-                <div class="result-row">
-                    <span>2. Tarif Ekspor (Batam ke Singapore)</span>
-                    <span id="resBiayaEkspor">Rp 0</span>
-                </div>
-                <div class="result-row">
-                    <span>3. Biaya Overhead (5% Ekspor)</span>
-                    <span id="resOverhead">Rp 0</span>
-                </div>
-                <div class="result-row">
-                    <span>4. Cost of Fund (8% p.a Ekspor)</span>
-                    <span id="resCoF">Rp 0</span>
-                </div>
+                <div class="result-row"><span>1. Tarif Domestik (Sumatera ke Batam)</span><span id="resBiayaDomestik">Rp 0</span></div>
+                <div class="result-row"><span>2. Tarif Ekspor (Batam ke Singapore)</span><span id="resBiayaEkspor">Rp 0</span></div>
+                <div class="result-row"><span>3. Biaya Overhead (5% Ekspor)</span><span id="resOverhead">Rp 0</span></div>
+                <div class="result-row"><span>4. Cost of Fund (8% p.a Ekspor)</span><span id="resCoF">Rp 0</span></div>
 
-                <div class="result-row subtotal">
-                    <span>SUBTOTAL MODAL (HPP)</span>
-                    <span id="resHPP">Rp 0</span>
-                </div>
-                
-                <div class="result-row" style="color: var(--cinnabar); font-weight: 600;">
-                    <span id="lblMargin">Margin Keuntungan (20%)</span>
-                    <span id="resMargin">Rp 0</span>
-                </div>
+                <div class="result-row subtotal"><span>SUBTOTAL MODAL (HPP)</span><span id="resHPP">Rp 0</span></div>
+                <div class="result-row" style="color: #EF4123; font-weight: 600;"><span id="lblMargin">Margin Keuntungan (20%)</span><span id="resMargin">Rp 0</span></div>
 
-                <div class="result-row total-akhir">
-                    <span class="headline">TOTAL TARIF</span>
-                    <span id="resTotalAkhir">Rp 0</span>
-                </div>
+                <div class="result-row total-akhir"><span class="headline">TOTAL TARIF</span><span id="resTotalAkhir">Rp 0</span></div>
                 
-                <div class="per-kg-box">
-                    Harga Jual per Kg: <span id="resPerKg">Rp 0</span>
-                </div>
+                <div class="per-kg-box">Harga Jual per Kg: <span id="resPerKg">Rp 0</span></div>
                 
-                <button onclick="window.print()" style="width: 100%; margin-top: 20px; padding: 12px; background: var(--delft-blue); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-family: 'Sora', sans-serif;">
+                <button onclick="window.print()" style="width: 100%; margin-top: 20px; padding: 12px; background: #1C2D5A; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-family: 'Sora', sans-serif;">
                     CETAK KUOTASI PDF
                 </button>
             </div>
@@ -279,12 +189,10 @@
     </div>
 
     <script>
-        // Data & UI State
         let tarifData = [];
         const inputAsal = document.getElementById('asalKirimanInput');
         const listAsal = document.getElementById('asalList');
 
-        // Fetch Data CSV saat halaman dimuat
         document.addEventListener("DOMContentLoaded", async () => {
             try {
                 inputAsal.placeholder = "Memuat database tarif...";
@@ -293,37 +201,29 @@
                 
                 const data = await response.text();
                 const lines = data.split('\n');
-                
                 if (lines.length < 2) return;
                 
-                // Cari Index Kolom
                 const headers = lines[0].split(',');
                 const idxAsal = headers.findIndex(h => h.trim() === 'ASAL_KAB_KOTA_KEC');
                 const idxIdKantor = headers.findIndex(h => h.trim() === 'ASAL_ID_KANTOR');
                 const idxBase = headers.findIndex(h => h.trim() === 'PAKET_POS_lebih2sd3Kg_Rp');
                 const idxNext = headers.findIndex(h => h.trim() === 'PAKET_POS_perKg_Berikutnya_Rp');
 
-                // Parsing per Baris
                 for (let i = 1; i < lines.length; i++) {
                     if (!lines[i].trim()) continue;
                     const cols = lines[i].split(',');
-                    
                     if (cols.length > Math.max(idxAsal, idxIdKantor, idxBase)) {
                         const asal = cols[idxAsal].replace(/['"]/g, '').trim();
                         const idKantor = cols[idxIdKantor].replace(/['"]/g, '').trim();
                         const baseRate = parseFloat(cols[idxBase]);
                         const nextRate = parseFloat(idxNext >= 0 ? cols[idxNext] : baseRate);
                         
-                        // FILTER KHUSUS: Hanya masukkan yang berawalan 2 (Sumatera) & 3 (Sumbagsel)
                         if (asal && !isNaN(baseRate) && (idKantor.startsWith('2') || idKantor.startsWith('3'))) {
                             tarifData.push({ asal, baseRate, nextRate });
                         }
                     }
                 }
-                
-                // Urutkan Sesuai Abjad agar gampang dibaca user
                 tarifData.sort((a, b) => a.asal.localeCompare(b.asal));
-                
                 inputAsal.placeholder = "Contoh: Medan, Pekanbaru, Padang...";
                 renderAutocompleteList(tarifData);
 
@@ -333,7 +233,6 @@
             }
         });
 
-        // FUNGSI AUTOCOMPLETE UI
         function renderAutocompleteList(items) {
             listAsal.innerHTML = '';
             if(items.length === 0) {
@@ -342,44 +241,24 @@
             }
             items.forEach(item => {
                 const li = document.createElement('li');
-                li.className = 'autocomplete-item';
-                li.textContent = item.asal;
-                li.onclick = () => {
-                    inputAsal.value = item.asal;
-                    listAsal.classList.remove('active');
-                    calculate(); // Memicu hitungan sesaat setelah user memilih kota
-                };
+                li.className = 'autocomplete-item'; li.textContent = item.asal;
+                li.onclick = () => { inputAsal.value = item.asal; listAsal.classList.remove('active'); calculate(); };
                 listAsal.appendChild(li);
             });
         }
 
-        // Tampilkan/Filter list saat diketik
         inputAsal.addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase();
             const filtered = tarifData.filter(item => item.asal.toLowerCase().includes(val));
             renderAutocompleteList(filtered);
-            listAsal.classList.add('active');
-            calculate();
+            listAsal.classList.add('active'); calculate();
         });
 
-        // Tampilkan list saat box di-klik
-        inputAsal.addEventListener('focus', () => {
-            if(tarifData.length > 0) listAsal.classList.add('active');
-        });
+        inputAsal.addEventListener('focus', () => { if(tarifData.length > 0) listAsal.classList.add('active'); });
+        document.addEventListener('click', (e) => { if(!document.getElementById('asalWrapper').contains(e.target)) listAsal.classList.remove('active'); });
 
-        // Sembunyikan list saat klik di luar kotak
-        document.addEventListener('click', (e) => {
-            if(!document.getElementById('asalWrapper').contains(e.target)) {
-                listAsal.classList.remove('active');
-            }
-        });
+        function formatRp(angka) { return "Rp " + Math.round(angka).toLocaleString('id-ID'); }
 
-        // Format Uang Rupiah
-        function formatRp(angka) {
-            return "Rp " + Math.round(angka).toLocaleString('id-ID');
-        }
-
-        // FUNGSI PERHITUNGAN UTAMA
         function calculate() {
             const rawKurs = parseFloat(document.getElementById('inputKurs').value) || 0;
             const kursBerlaku = rawKurs > 0 ? Math.ceil(rawKurs / 50) * 50 : 0;
@@ -388,87 +267,71 @@
             const pctMargin = parseFloat(document.getElementById('inputMargin').value) || 0;
             document.getElementById('lblMargin').innerText = `5. Margin Profit (${pctMargin}%)`;
 
+            // LOGIKA TOGGLE CREDIT VS CASH TERM
+            const skema = document.getElementById('skemaTarif').value;
+            const multiplier = (skema === 'credit') ? 1.1 : 1.0;
+
             const p = parseFloat(document.getElementById('dimP').value) || 0;
             const l = parseFloat(document.getElementById('dimL').value) || 0;
             const t = parseFloat(document.getElementById('dimT').value) || 0;
             const aktual = parseFloat(document.getElementById('aktualWeight').value) || 0;
-            
-            // Ambil dari input custom, dan ubah ke lowercase untuk pencocokan aman
             const asalInput = inputAsal.value.trim().toLowerCase();
 
             if (aktual === 0 || !asalInput) {
                 document.getElementById('resBiayaDomestik').innerText = "Rp 0";
                 document.getElementById('resBiayaEkspor').innerText = "Rp 0";
-                document.getElementById('resTotalAkhir').innerText = "Rp 0";
-                return; 
+                document.getElementById('resTotalAkhir').innerText = "Rp 0"; return; 
             }
 
-            // 1. KALKULASI DOMESTIK (LPU Pos Indonesia, Pembagi Vol = 6000)
             const volDom = (p * l * t) / 6000;
             const cwDomestik = Math.max(aktual, volDom);
             document.getElementById('resCwDomestik').innerText = cwDomestik.toFixed(2) + " Kg";
 
-            // Cari Info Tarif Asal yang benar-benar cocok dan tervalidasi ada di list
             const tarifInfo = tarifData.find(x => x.asal.toLowerCase() === asalInput);
             let biayaDomestikIDR = 0;
-            
             if (tarifInfo) {
-                if (cwDomestik <= 3) {
-                    biayaDomestikIDR = tarifInfo.baseRate;
-                } else {
-                    let extraKg = Math.max(0, Math.ceil(cwDomestik - 3));
-                    biayaDomestikIDR = tarifInfo.baseRate + (extraKg * tarifInfo.nextRate);
-                }
+                if (cwDomestik <= 3) { biayaDomestikIDR = tarifInfo.baseRate; } 
+                else { let extraKg = Math.max(0, Math.ceil(cwDomestik - 3)); biayaDomestikIDR = tarifInfo.baseRate + (extraKg * tarifInfo.nextRate); }
             }
 
-            // 2. KALKULASI EKSPOR (Usaha Express, Pembagi Vol = 5000, Rumus Bagi 2)
             const volEks = (p * l * t) / 5000;
             let cwEkspor = aktual;
-            if (volEks > aktual) {
-                cwEkspor = (((volEks - aktual) / 2) + aktual);
-            }
+            if (volEks > aktual) { cwEkspor = (((volEks - aktual) / 2) + aktual); }
             document.getElementById('resCwEkspor').innerText = cwEkspor.toFixed(2) + " Kg";
 
             const warningEl = document.getElementById('warning-100kg');
-            if (cwEkspor > 100) {
-                warningEl.style.display = 'block';
-                return; 
-            } else {
-                warningEl.style.display = 'none';
-            }
+            if (cwEkspor > 100) { warningEl.style.display = 'block'; return; } 
+            else { warningEl.style.display = 'none'; }
 
             const declareInput = parseFloat(document.getElementById('declareValue').value) || 0;
             const currency = document.getElementById('currency').value;
             let declareSgd = declareInput;
             if (currency === 'IDR' && kursBerlaku > 0) declareSgd = declareInput / kursBerlaku;
 
-            // Tier Freight Usaha Express
+            // PERHITUNGAN DINAMIS TERGANTUNG MULTIPLIER (CASH 1.0 / CREDIT 1.1)
             let tier1 = Math.min(cwEkspor, 50) * 5;
             let tier2 = Math.min(Math.max(cwEkspor - 50, 0), 50) * 4.5;
-            let creditFreight = (tier1 + tier2) * 1.1;
+            let finalFreight = (tier1 + tier2) * multiplier;
 
-            let gst = (declareSgd * 0.09) * 1.1;
-            let ins = document.getElementById('useIns').checked ? Math.max(5, declareSgd * 0.005) * 1.1 : 0;
-            let undername = (creditFreight + gst + ins) * 0.05 * 1.1;
+            let gst = (declareSgd * 0.09) * multiplier;
+            let ins = document.getElementById('useIns').checked ? Math.max(5, declareSgd * 0.005) * multiplier : 0;
+            let undername = (finalFreight + gst + ins) * 0.05 * multiplier;
             
             let surcharge = 0;
             if(document.getElementById('usePriority').checked) surcharge += 10;
             if(document.getElementById('usePermit').checked) surcharge += 30;
 
-            let biayaEksporIDR = (creditFreight + gst + ins + undername + surcharge) * kursBerlaku;
+            let biayaEksporIDR = (finalFreight + gst + ins + undername + surcharge) * kursBerlaku;
 
-            // 3. KALKULASI OVERHEAD & COST OF FUND
             let overheadIDR = biayaEksporIDR * 0.05;
             let cofIDR = biayaEksporIDR * (30 / 365) * 0.08;
 
-            // 4. KALKULASI MARGIN & GRAND TOTAL
             let hppTotalIDR = biayaDomestikIDR + biayaEksporIDR + overheadIDR + cofIDR;
             let marginIDR = hppTotalIDR * (pctMargin / 100);
             
             let grandTotalIDR = hppTotalIDR + marginIDR;
             let perKgIDR = grandTotalIDR / aktual; 
 
-            // 5. UPDATE TAMPILAN
             document.getElementById('resBiayaDomestik').innerText = formatRp(biayaDomestikIDR);
             document.getElementById('resBiayaEkspor').innerText = formatRp(biayaEksporIDR);
             document.getElementById('resOverhead').innerText = formatRp(overheadIDR);

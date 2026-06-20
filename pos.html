@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator End-to-End: Sumatera - Singapore | PosIND</title>
+    
+    <!-- Mengimpor Font Resmi PosIND: Sora & Gantari -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gantari:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Warna Resmi Rebranding PosIND */
+            --delft-blue: #1C2D5A;
+            --cinnabar: #EF4123;
+            --bg-light: #F4F6F9;
+            --white: #FFFFFF;
+            --gray-border: #D1D5DB;
+            --text-main: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Gantari', Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            padding-bottom: 50px;
+        }
+
+        h1, h2, h3, h4, .headline {
+            font-family: 'Sora', Arial, sans-serif;
+        }
+
+        /* HEADER & LOGO */
+        .navbar {
+            background-color: var(--white);
+            border-bottom: 5px solid var(--cinnabar);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(28, 45, 90, 0.08);
+        }
+        
+        .navbar img.danantara { height: 45px; }
+        .navbar img.posind { height: 35px; }
+
+        /* KONTAINER UTAMA */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.8fr 1.2fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+            .navbar { padding: 15px 20px; }
+            .navbar img.danantara { height: 35px; }
+            .navbar img.posind { height: 28px; }
+        }
+
+        /* KARTU FORM */
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #E5E7EB;
+            margin-bottom: 25px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            color: var(--delft-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--cinnabar);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* FORM BIAYA */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; color: var(--delft-blue); }
+        
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray-border);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Gantari', sans-serif;
+            transition: all 0.2s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--delft-blue);
+            box-shadow: 0 0 0 3px rgba(28, 45, 90, 0.1);
+        }
+
+        .info-text { font-size: 12px; color: #6B7280; margin-top: 4px; display: block; }
+        
+        .checkbox-container {
+            display: flex; align-items: center; gap: 15px; margin-top: 10px;
+        }
+        .checkbox-container label {
+            display: flex; align-items: center; gap: 5px; font-weight: 500; cursor: pointer; color: var(--text-main); margin: 0;
+        }
+        .checkbox-container input { width: 16px; height: 16px; accent-color: var(--cinnabar); }
+
+        /* RINCIAN HASIL */
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--gray-border);
+            font-size: 14px;
+        }
+        
+        .result-row.subtotal {
+            font-weight: 700;
+            border-top: 2px solid var(--delft-blue);
+            border-bottom: none;
+            padding-top: 15px;
+            margin-top: 5px;
+            color: var(--delft-blue);
+        }
+
+        .result-row.total-akhir {
+            background-color: var(--delft-blue);
+            color: var(--white);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 15px;
+            align-items: center;
+        }
+
+        .per-kg-box {
+            text-align: right;
+            margin-top: 10px;
+            font-size: 15px;
+            color: var(--cinnabar);
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .badge-loading { background: #FEF3C7; color: #D97706; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <!-- Header dengan Logo Danantara & PosIND -->
+    <div class="navbar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Danantara_Indonesia_%28no_SW%29.svg/960px-Danantara_Indonesia_%28no_SW%29.svg.png" alt="Danantara" class="danantara">
+        <img src="https://www.posindonesia.co.id/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdark-logo.1203538b.png&w=256&q=75" alt="PosIND" class="posind">
+    </div>
+
+    <div class="container">
+        <!-- PANEL KIRI: INPUT -->
+        <div class="left-panel">
+            
+            <div class="card">
+                <h2 class="card-title">1. KONFIGURASI TRANSAKSI</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>KURS JUAL SGD (Bank Indonesia)</label>
+                        <input type="number" id="inputKurs" value="14015" oninput="calculate()">
+                        <span class="info-text" id="infoKurs">Kurs berlaku (+50): Rp 14.050</span>
+                    </div>
+                    <div class="form-group">
+                        <label>MARGIN PROFIT (%)</label>
+                        <input type="number" id="inputMargin" value="20" min="10" max="100" oninput="calculate()">
+                        <span class="info-text">Standard: 10% - 20% (Diterapkan ke total modal)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">2. DETAIL KIRIMAN & ASAL (SUMATERA)</h2>
+                
+                <div class="form-group">
+                    <label>LOKASI ASAL KIRIMAN (Sesuai tarif_batam.csv)</label>
+                    <select id="asalKiriman" onchange="calculate()">
+                        <option value="">Memuat data CSV dari server...</option>
+                    </select>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>BERAT AKTUAL (Kg)</label>
+                        <input type="number" id="aktualWeight" placeholder="0" step="0.1" oninput="calculate()">
+                    </div>
+                    <div class="form-group">
+                        <label>DIMENSI P x L x T (cm)</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="number" id="dimP" placeholder="P" oninput="calculate()">
+                            <input type="number" id="dimL" placeholder="L" oninput="calculate()">
+                            <input type="number" id="dimT" placeholder="T" oninput="calculate()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>DECLARE VALUE (Nilai Barang)</label>
+                        <input type="number" id="declareValue" placeholder="0" oninput="calculate()">
+                    </div>
+                    <div class="form-group">
+                        <label>MATA UANG</label>
+                        <select id="currency" onchange="calculate()">
+                            <option value="SGD">SGD</option>
+                            <option value="IDR">IDR</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="checkbox-container">
+                    <label><input type="checkbox" id="useIns" checked onchange="calculate()"> Pakai Asuransi</label>
+                    <label><input type="checkbox" id="usePriority" onchange="calculate()"> Priority (+S$ 10)</label>
+                    <label><input type="checkbox" id="usePermit" onchange="calculate()"> Permit (+S$ 30)</label>
+                </div>
+                
+                <div id="warning-100kg" style="display: none; margin-top: 15px; color: var(--white); background: var(--cinnabar); padding: 10px; border-radius: 6px; font-weight: bold; text-align: center; font-size: 13px;">
+                    ⚠️ Chargeable Weight melebihi 100 Kg. Hubungi Usaha Express (Case by Case).
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL KANAN: HASIL -->
+        <div class="right-panel">
+            <div class="card" style="position: sticky; top: 20px;">
+                <h2 class="card-title headline">3. RINCIAN TARIF & BIAYA</h2>
+                
+                <div class="result-row">
+                    <span>CWeight Domestik (/6000)</span>
+                    <span id="resCwDomestik" style="font-weight: 600;">0 Kg</span>
+                </div>
+                <div class="result-row" style="margin-bottom: 10px;">
+                    <span>CWeight Ekspor (/5000)</span>
+                    <span id="resCwEkspor" style="font-weight: 600;">0 Kg</span>
+                </div>
+
+                <div class="result-row">
+                    <span>1. Tarif Domestik (LPU ke Batam)</span>
+                    <span id="resBiayaDomestik">Rp 0</span>
+                </div>
+                <div class="result-row">
+                    <span>2. Tarif Ekspor (Usaha Express)</span>
+                    <span id="resBiayaEkspor">Rp 0</span>
+                </div>
+                <div class="result-row">
+                    <span>3. Biaya Overhead (5% Ekspor)</span>
+                    <span id="resOverhead">Rp 0</span>
+                </div>
+                <div class="result-row">
+                    <span>4. Cost of Fund (8% p.a Ekspor)</span>
+                    <span id="resCoF">Rp 0</span>
+                </div>
+
+                <div class="result-row subtotal">
+                    <span>SUBTOTAL MODAL (HPP)</span>
+                    <span id="resHPP">Rp 0</span>
+                </div>
+                
+                <div class="result-row" style="color: var(--cinnabar); font-weight: 600;">
+                    <span id="lblMargin">Margin Keuntungan (20%)</span>
+                    <span id="resMargin">Rp 0</span>
+                </div>
+
+                <div class="result-row total-akhir">
+                    <span class="headline">TOTAL TARIF</span>
+                    <span id="resTotalAkhir">Rp 0</span>
+                </div>
+                
+                <div class="per-kg-box">
+                    Harga Jual per Kg: <span id="resPerKg">Rp 0</span>
+                </div>
+                
+                <button onclick="window.print()" style="width: 100%; margin-top: 20px; padding: 12px; background: #333; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-family: 'Sora', sans-serif;">
+                    CETAK KUOTASI PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Array Global Penyimpan Data CSV
+        let tarifData = [];
+
+        // Saat halaman dimuat, panggil CSV dari GitHub
+        document.addEventListener("DOMContentLoaded", async () => {
+            const select = document.getElementById('asalKiriman');
+            try {
+                // Fetch file CSV (Pastikan tarif_batam.csv di-push ke root github)
+                const response = await fetch('tarif_batam.csv');
+                if (!response.ok) throw new Error("Gagal mengambil file CSV");
+                
+                const data = await response.text();
+                const lines = data.split('\n');
+                
+                if (lines.length < 2) return;
+                
+                // Cari Index Kolom
+                const headers = lines[0].split(',');
+                const idxAsal = headers.findIndex(h => h.trim() === 'ASAL_KAB_KOTA_KEC');
+                const idxBase = headers.findIndex(h => h.trim() === 'PAKET_POS_lebih2sd3Kg_Rp');
+                const idxNext = headers.findIndex(h => h.trim() === 'PAKET_POS_perKg_Berikutnya_Rp');
+
+                select.innerHTML = '<option value="">-- Pilih Asal Pengiriman (Sumatera) --</option>';
+
+                // Parse Baris per Baris
+                for (let i = 1; i < lines.length; i++) {
+                    if (!lines[i].trim()) continue;
+                    const cols = lines[i].split(',');
+                    
+                    if (cols.length > Math.max(idxAsal, idxBase)) {
+                        const asal = cols[idxAsal].replace(/['"]/g, '').trim();
+                        const baseRate = parseFloat(cols[idxBase]);
+                        const nextRate = parseFloat(idxNext >= 0 ? cols[idxNext] : baseRate);
+                        
+                        if (asal && !isNaN(baseRate)) {
+                            tarifData.push({ asal, baseRate, nextRate });
+                            const opt = document.createElement('option');
+                            opt.value = asal;
+                            opt.textContent = asal;
+                            select.appendChild(opt);
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Error reading CSV:", e);
+                select.innerHTML = '<option value="">⚠️ Gagal memuat tarif_batam.csv</option>';
+            }
+        });
+
+        // Format Uang Rupiah
+        function formatRp(angka) {
+            return "Rp " + Math.round(angka).toLocaleString('id-ID');
+        }
+
+        // Fungsi Perhitungan Utama
+        function calculate() {
+            // 1. Ambil Nilai Kurs & Margin
+            const rawKurs = parseFloat(document.getElementById('inputKurs').value) || 0;
+            const kursBerlaku = rawKurs > 0 ? Math.ceil(rawKurs / 50) * 50 : 0;
+            document.getElementById('infoKurs').innerText = `Kurs berlaku (+50): ${formatRp(kursBerlaku)}`;
+            
+            const pctMargin = parseFloat(document.getElementById('inputMargin').value) || 0;
+            document.getElementById('lblMargin').innerText = `5. Margin Profit (${pctMargin}%)`;
+
+            // 2. Ambil Input Dimensi & Berat
+            const p = parseFloat(document.getElementById('dimP').value) || 0;
+            const l = parseFloat(document.getElementById('dimL').value) || 0;
+            const t = parseFloat(document.getElementById('dimT').value) || 0;
+            const aktual = parseFloat(document.getElementById('aktualWeight').value) || 0;
+            const asal = document.getElementById('asalKiriman').value;
+
+            // Jika form utama kosong, reset angka
+            if (aktual === 0 || !asal) {
+                document.getElementById('resBiayaDomestik').innerText = "Rp 0";
+                document.getElementById('resBiayaEkspor').innerText = "Rp 0";
+                document.getElementById('resTotalAkhir').innerText = "Rp 0";
+                return; 
+            }
+
+            // 3. KALKULASI DOMESTIK (LPU Pos Indonesia)
+            // Rumus Volumetrik Domestik = /6000
+            const volDom = (p * l * t) / 6000;
+            const cwDomestik = Math.max(aktual, volDom);
+            document.getElementById('resCwDomestik').innerText = cwDomestik.toFixed(2) + " Kg";
+
+            const tarifInfo = tarifData.find(x => x.asal === asal);
+            let biayaDomestikIDR = 0;
+            if (tarifInfo) {
+                if (cwDomestik <= 3) {
+                    biayaDomestikIDR = tarifInfo.baseRate;
+                } else {
+                    let extraKg = Math.max(0, Math.ceil(cwDomestik - 3));
+                    biayaDomestikIDR = tarifInfo.baseRate + (extraKg * tarifInfo.nextRate);
+                }
+            }
+
+            // 4. KALKULASI EKSPOR (Usaha Express)
+            // Rumus Volumetrik Ekspor = /5000 dan logic BTH-SIN
+            const volEks = (p * l * t) / 5000;
+            let cwEkspor = aktual;
+            if (volEks > aktual) {
+                cwEkspor = (((volEks - aktual) / 2) + aktual);
+            }
+            document.getElementById('resCwEkspor').innerText = cwEkspor.toFixed(2) + " Kg";
+
+            const warningEl = document.getElementById('warning-100kg');
+            if (cwEkspor > 100) {
+                warningEl.style.display = 'block';
+                return; // Stop kalkulasi karena case-by-case
+            } else {
+                warningEl.style.display = 'none';
+            }
+
+            const declareInput = parseFloat(document.getElementById('declareValue').value) || 0;
+            const currency = document.getElementById('currency').value;
+            let declareSgd = declareInput;
+            if (currency === 'IDR' && kursBerlaku > 0) declareSgd = declareInput / kursBerlaku;
+
+            // Hitung Tingkat Freight BTH-SIN
+            let tier1 = Math.min(cwEkspor, 50) * 5;
+            let tier2 = Math.min(Math.max(cwEkspor - 50, 0), 50) * 4.5;
+            let baseFreight = tier1 + tier2;
+            let creditFreight = baseFreight * 1.1;
+
+            let gst = (declareSgd * 0.09) * 1.1;
+            let ins = document.getElementById('useIns').checked ? Math.max(5, declareSgd * 0.005) * 1.1 : 0;
+            let undername = (creditFreight + gst + ins) * 0.05 * 1.1;
+            
+            let surcharge = 0;
+            if(document.getElementById('usePriority').checked) surcharge += 10;
+            if(document.getElementById('usePermit').checked) surcharge += 30;
+
+            let totalSgdEkspor = creditFreight + gst + ins + undername + surcharge;
+            let biayaEksporIDR = totalSgdEkspor * kursBerlaku;
+
+            // 5. KALKULASI OVERHEAD & COST OF FUND (Sesuai Rumus)
+            let overheadIDR = biayaEksporIDR * 0.05;
+            let cofIDR = biayaEksporIDR * (30 / 365) * 0.08;
+
+            // 6. KALKULASI MARGIN & GRAND TOTAL
+            let hppTotalIDR = biayaDomestikIDR + biayaEksporIDR + overheadIDR + cofIDR;
+            let marginIDR = hppTotalIDR * (pctMargin / 100);
+            
+            let grandTotalIDR = hppTotalIDR + marginIDR;
+            let perKgIDR = grandTotalIDR / aktual; // Dibagi berat aktual barang di mata konsumen
+
+            // 7. RENDER UI
+            document.getElementById('resBiayaDomestik').innerText = formatRp(biayaDomestikIDR);
+            document.getElementById('resBiayaEkspor').innerText = formatRp(biayaEksporIDR);
+            document.getElementById('resOverhead').innerText = formatRp(overheadIDR);
+            document.getElementById('resCoF').innerText = formatRp(cofIDR);
+            document.getElementById('resHPP').innerText = formatRp(hppTotalIDR);
+            document.getElementById('resMargin').innerText = formatRp(marginIDR);
+            
+            document.getElementById('resTotalAkhir').innerText = formatRp(grandTotalIDR);
+            document.getElementById('resPerKg').innerText = formatRp(perKgIDR);
+        }
+    </script>
+</body>
+</html>
